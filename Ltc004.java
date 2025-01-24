@@ -1,70 +1,31 @@
- public class Ltc004 {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummyHead = new ListNode(0); 
-        ListNode current = dummyHead; 
-        int carry = 0; 
-        while (l1 != null || l2 != null || carry != 0) {
-            int sum = carry; 
-            if (l1 != null) {
-                sum += l1.val;
-                l1 = l1.next; 
+import java.util.HashMap;
+
+public class Ltc004 {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
             }
-
-            if (l2 != null) {
-                sum += l2.val;
-                l2 = l2.next; 
-            }
-
-            carry = sum / 10;
-            current.next = new ListNode(sum % 10);
-            current = current.next; 
+            map.put(nums[i], i);
         }
-
-        return dummyHead.next; 
-    }
-
-    public static ListNode createList(int[] nums) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode current = dummyHead;
-        for (int num : nums) {
-            current.next = new ListNode(num);
-            current = current.next;
-        }
-        return dummyHead.next;
-    }
-    public static void printList(ListNode head) {
-        while (head != null) {
-            System.out.print(head.val);
-            if (head.next != null) {
-                System.out.print(" -> ");
-            }
-            head = head.next;
-        }
-        System.out.println();
+        throw new IllegalArgumentException("No two sum solution");
     }
 
     public static void main(String[] args) {
         Ltc004 solution = new Ltc004();
-
-        ListNode l1 = createList(new int[]{2, 4, 3});
-        ListNode l2 = createList(new int[]{5, 6, 4});
-
-        ListNode result = solution.addTwoNumbers(l1, l2);
-
-        
-        printList(result); 
-    }
-}
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {}
-    ListNode(int val) {
-        this.val = val;
-    }
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
+        int[] nums1 = {2, 7, 11, 15};
+        int target1 = 9;
+        int[] result1 = solution.twoSum(nums1, target1);
+        System.out.println("Output: [" + result1[0] + "," + result1[1] + "]");
+        int[] nums2 = {3, 2, 4};
+        int target2 = 6;
+        int[] result2 = solution.twoSum(nums2, target2);
+        System.out.println("Output: [" + result2[0] + "," + result2[1] + "]");
+        int[] nums3 = {3, 3};
+        int target3 = 6;
+        int[] result3 = solution.twoSum(nums3, target3);
+        System.out.println("Output: [" + result3[0] + "," + result3[1] + "]");
     }
 }
